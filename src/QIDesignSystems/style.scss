@@ -1,0 +1,137 @@
+.content-header {
+    padding: 1em;
+}
+
+.page-title {
+    font-size: 2em;
+    padding: 0.5rem 1rem;
+}
+
+.sub-title {
+    border-bottom: 1px solid #666;
+    font-size: 1.25em;
+    margin-bottom: 1rem;
+    margin-top: -1rem;
+    padding-bottom: 0.5em;
+}
+.side-sub-title {
+    border-bottom: 1px solid #666;
+    font-size: 1.25em;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5em;
+}
+
+.app-container {
+    background-color: #eee;
+    display: flex;
+    position: relative;
+    
+    .sidebar {
+        position: fixed;
+        box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+        left: 0;
+        height: calc(100vh - 9em);
+        margin-right: 1rem;
+        padding: 1rem;
+        width: 15rem;
+        overflow-y: auto;
+        background-color: #eee;
+    }
+
+    .content {
+        background-color: #fff;
+        box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+        padding: 1rem;
+        margin-left: 15rem;
+        width: calc(100% - 14rem);
+        height: calc(100vh - 9em);
+        overflow: auto;
+    }
+
+    .element-item {
+        background-color: #eee;
+        margin-bottom: 1em;
+        padding: 2em;
+    }
+
+    .code-exaple {
+        background-color: #fff;
+        padding: 1em;
+        margin-top: 1em;
+    }
+}
+
+input {
+    border: 1px solid #ccc;
+}
+
+table {
+    font-size: .875em;
+    line-height: 1.7142857;
+    margin-bottom: 2em;
+    margin-top: 2em;
+    table-layout: auto;
+    width: 200px;
+    text-align: left;
+    color: #fff;
+   
+
+    thead {
+        background: #383838;
+    }
+    th{
+       
+        border-color: #817d7d;
+        padding: .25rem .75rem;
+    }
+
+    th:first-child {
+        border-top-left-radius: .375rem;
+    }
+
+    th:last-child {
+        border-top-right-radius: .375rem;
+    }
+
+    tbody {
+        background-color: #000;
+    }
+
+    td {
+        display: table-cell;
+        border-bottom-width: 1px;
+        border-right-width: 1px;
+        border-color: #817d7d;
+        padding: .25rem .75rem;
+       
+       
+    }
+    code{
+        background-color: #424242 ;
+    }
+}
+
+.component-list {
+  &_item {
+    a {
+      display: block;
+      padding: 0.5rem 1rem;
+      color: #333;
+      text-decoration: none;
+      border-left: 3px solid transparent;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #ffffff;
+        border-left-color: #ddd;
+      }
+
+      &.active {
+        background-color: #f0f5fa;
+        border-left-color: #0767d0;
+        color: #0767d0;
+        font-weight: 500;
+      }
+    }
+  }
+}

@@ -1,0 +1,75 @@
+.qi-btn {
+    @apply flex text-blue-700 uppercase font-bold px-4 rounded;
+  
+    align-items: center;
+    height: 50px;
+  
+    &_label {
+      @apply w-full text-center;
+    }
+  
+    &.primary {
+      @apply bg-orange-600;
+  
+      transition: all 0.3s ease;
+  
+      &:hover {
+        background-color: #ff7327;
+      }
+    }
+  
+    &.secondary {
+      background-color: #e7edf5;
+      transition: all 0.3s ease;
+  
+      &:hover {
+        background-color: #31c786;
+        color: #fff;
+      }
+    }
+  
+    &.disabled {
+      background-color: #f0f5fa;
+      color: #717a85;
+      cursor: not-allowed;
+  
+      &:hover {
+        background-color: #f0f5fa;
+      }
+    }
+  
+    .icon-wrapper {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+  
+    &.md {
+      height: 32px;
+  
+      .icon-wrapper {
+        height: 32px;
+        width: 32px;
+      }
+    }
+  
+    &.sm {
+      height: 28px;
+      font-size: 14px;
+    }
+  
+    .icon-wrapper {
+      @apply rounded p-2 align-middle;
+  
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.1);
+      display: inline-flex;
+      height: 50px;
+      justify-content: center;
+      margin: 0 -15px 0 15px;
+      width: 50px;
+  
+      .icon {
+        fill: #fff;
+      }
+    }
+  }
+  

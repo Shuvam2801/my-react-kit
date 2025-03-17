@@ -1,0 +1,23 @@
+.qi-slide-select {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .slide {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    
+    svg {
+      width: 20px;  // Smaller size for the arrow icons
+      height: 20px; // Smaller size for the arrow icons
+      color: #94adba;
+    }
+  }
+
+  .slide-display {
+    min-width: 2rem;
+    text-align: center;
+  }
+  
+}

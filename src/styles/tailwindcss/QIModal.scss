@@ -1,0 +1,114 @@
+// .qi-modal {
+//     @apply flex fixed w-full h-full top-0 left-0 overflow-y-auto overflow-x-hidden;
+  
+//     align-items: center;
+//     outline: 0;
+//     z-index: 99999;
+  
+//     &_dialog {
+//       @apply relative w-auto pointer-events-none;
+  
+//       margin: 1.75rem auto;
+  
+//       &.full {
+//         width: calc(100% - 40px);
+//       }
+  
+//       &.xl-large {
+//         width: 80%;
+//       }
+  
+//       &.x-large {
+//         width: 940px;
+//       }
+  
+//       &.large {
+//         width: 800px;
+//       }
+  
+//       &.medium {
+//         width: 600px;
+//       }
+  
+//       &.small {
+//         width: 400px;
+//       }
+//     }
+  
+//     /***TEMP STYLE for DELETE Confirmation Modal****/
+//     &.confirm {
+//       .qi-modal_dialog.large {
+//         max-width: 450px;
+//       }
+//     }
+//     /***TEMP STYLE for DELETE Confirmation Modal****/
+  
+//     &_content {
+//       @apply relative flex flex-col w-full bg-white pointer-events-auto rounded;
+  
+//       outline: 0;
+//     }
+  
+//     &_header {
+//       @apply flex px-6 pt-6 pb-3;
+  
+//       align-items: center;
+//       justify-content: space-between;
+  
+//       h5 {
+//         font-size: 20px;
+//         font-weight: bold;
+//       }
+//     }
+  
+//     &_close {
+//       height: 30px;
+//       width: 30px;
+  
+//       &:hover {
+//         .icon {
+//           fill: #0767d0;
+//         }
+//       }
+//     }
+  
+//     &_body {
+//       @apply px-6 pb-3 mt-3;
+  
+//       max-height: calc(100vh - 280px);
+//       min-height: 220px;
+  
+//       &::after {
+//         content: "";
+//         display: block;
+//         height: 1px;
+//       }
+//     }
+  
+//     &_footer {
+//       @apply flex py-6 mt-3 border-t;
+  
+//       align-items: center;
+//       justify-content: center;
+  
+//       .qi-btn {
+//         @apply mx-4;
+  
+//         min-width: 150px;
+//       }
+  
+//       &.no-buttons {
+//         @apply py-3;
+  
+//         border-top: none;
+//       }
+//     }
+  
+//     &_backdrop {
+//       @apply fixed top-0 left-0 opacity-90 h-screen w-screen;
+  
+//       background-color: #1a2934;
+//       z-index: 1040;
+//     }
+//   }
+  

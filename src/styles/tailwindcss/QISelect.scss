@@ -1,0 +1,13 @@
+.qi-select {
+    @apply flex rounded;
+  
+    align-items: center;
+  
+    &_label {
+      width: 100%;
+    }
+  
+    &_text {
+      @apply p-1 w-20 rounded bg-white border ml-3;
+    }
+  }

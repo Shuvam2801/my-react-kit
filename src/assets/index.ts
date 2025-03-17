@@ -1,0 +1,13 @@
+export { default as carIcon } from './car.png';
+export { default as fullLogo } from './logo-full.png';
+export { default as smallLogo } from './logo-sm.png';
+export { default as userImg } from './user.png';
+export { default as user400 } from './user400.jpg';
+export { default as loader } from './loader.png';
+export { default as banner } from './static/banner.jpg';
+export { default as dashboard } from './static/dashboard.png';
+export { default as radioPropImg } from './radio.png';
+export { default as qiswitchPropImg } from './qiswitch.png';
+export { default as tripDataImg } from './tripdata.png';
+export { default as slideProp } from './slideProp.png';
+export { default as slidePaginationField } from './slidePaginationField.png'; 
