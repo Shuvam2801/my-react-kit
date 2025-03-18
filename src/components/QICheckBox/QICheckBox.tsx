@@ -46,25 +46,27 @@ export const QICheckBox: React.FC<QICheckBoxProps> = ({
   ...props
 }) => {
   return (
-    <>
-      <div className={`qi-checkbox qi-form-element ${className || ''}`}>
-        <label className="qi-checkbox_label" data-testid="input-label" htmlFor={id}>
-          {label}
-        </label>
-        <div className="qi-checkbox_input-wrapper">
-          <input
-            type="checkbox"
-            value={value}
-            checked={checked}
-            className="qi-checkbox_input"
-            onChange={() => onChange(value)}
-            disabled={readOnly}
-            id={id}
-            {...props}
-          />
-          {!readOnly && <small className="qi-checkbox_error">{error}</small>}
-        </div>
+    <div className={`qi-checkbox qi-form-element ${className || ''}`}>
+      <label 
+        className={`qi-checkbox_label ${labelclass || ''}`} 
+        data-testid="input-label" 
+        htmlFor={id}
+      >
+        {label}
+      </label>
+      <div className={`qi-checkbox_input-wrapper ${checkboxClass || ''}`}>
+        <input
+          type="checkbox"
+          value={value}
+          checked={checked}
+          className="qi-checkbox_input"
+          onChange={() => onChange(value)}
+          disabled={readOnly}
+          id={id}
+          {...props}
+        />
+        {!readOnly && error && <small className="qi-checkbox_error">{error}</small>}
       </div>
-    </>
+    </div>
   );
 };

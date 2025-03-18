@@ -7,6 +7,7 @@ module.exports = {
     entry: {
         main: './src/index.js',
         tailwind: './src/tailwind-entry.js',
+        lib: './src/lib.js',          // For library usage
         //bootstrap: './src/bootstrap-entry.js',
         components: './src/components-entry.js',
         types: './src/types.d.ts'
@@ -105,5 +106,6 @@ module.exports = {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
       mode: 'development',
+      
     };
     

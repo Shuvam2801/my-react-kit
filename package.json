@@ -1,12 +1,16 @@
 {
   "name": "@qinvent/test-react-kit",
   "version": "1.0.1",
-  "main": "dist/main.js",
-  "module": "dist/main.js",
-  "style": "dist/styles/index.css",
+  "main": "dist/lib.js",
+  "module": "dist/lib.js",
+  "style": "dist/styles/main.css",
   "files": [
     "dist"
   ],
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
   "scripts": {
     "start": "webpack serve --config webpack.config.js",
     "build": "webpack",

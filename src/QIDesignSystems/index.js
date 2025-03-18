@@ -218,7 +218,6 @@ export const QIDesignSystems = () => {
   return (
     <>
       <h1 className="page-title">React Kit Components</h1>
-
       <div className='content-header'>
         <h1 style={{ fontSize: '16px', fontWeight: 'normal' }}>React Kit Documentation</h1>
         <p>Welcome to the documentation page. Here you'll find information on how to use the components.</p>
@@ -262,7 +261,7 @@ export const QIDesignSystems = () => {
               showLineNumbers={true}
               theme={dracula}
               wrapLines={true}
-              codeBlock
+              codeblock
             />
           </section>
 
@@ -293,7 +292,7 @@ export const QIDesignSystems = () => {
               showLineNumbers={true}
               theme={dracula}
               wrapLines={true}
-              codeBlock
+              codeblock
             />
           </section>
 
@@ -317,7 +316,7 @@ export const QIDesignSystems = () => {
               showLineNumbers={true}
               theme={dracula}
               wrapLines={true}
-              codeBlock
+              codeblock
             />
           </section>
 
@@ -341,7 +340,7 @@ export const QIDesignSystems = () => {
               showLineNumbers={true}
               theme={dracula}
               wrapLines={true}
-              codeBlock
+              codeblock
             />
           </section>
 
@@ -407,7 +406,7 @@ export const QIDesignSystems = () => {
               showLineNumbers={true}
               theme={dracula}
               wrapLines={true}
-              codeBlock
+              codeblock
             />
           </section>
 
@@ -427,7 +426,7 @@ export const QIDesignSystems = () => {
               showLineNumbers={true}
               theme={dracula}
               wrapLines={true}
-              codeBlock
+              codeblock
             />
           </section>
 
@@ -451,7 +450,7 @@ export const QIDesignSystems = () => {
               showLineNumbers={true}
               theme={dracula}
               wrapLines={true}
-              codeBlock
+              codeblock
             />
           </section>
 
@@ -470,7 +469,7 @@ export const QIDesignSystems = () => {
               showLineNumbers={true}
               theme={dracula}
               wrapLines={true}
-              codeBlock
+              codeblock
             />
           </section>
 
@@ -495,7 +494,7 @@ export const QIDesignSystems = () => {
               showLineNumbers={true}
               theme={dracula}
               wrapLines={true}
-              codeBlock
+              codeblock
             />
           </section>
 
@@ -514,7 +513,7 @@ export const QIDesignSystems = () => {
               showLineNumbers={true}
               theme={dracula}
               wrapLines={true}
-              codeBlock
+              codeblock
             />
           </section>
           
@@ -567,7 +566,7 @@ export const QIDesignSystems = () => {
               showLineNumbers={true}
               theme={dracula}
               wrapLines={true}
-              codeBlock
+              codeblock
             />
           </section>
 
@@ -590,7 +589,7 @@ export const QIDesignSystems = () => {
               showLineNumbers={true}
               theme={dracula}
               wrapLines={true}
-              codeBlock
+              codeblock
             />
           </section>
 
@@ -616,7 +615,7 @@ export const QIDesignSystems = () => {
               showLineNumbers={true}
               theme={dracula}
               wrapLines={true}
-              codeBlock
+              codeblock
             />
           </section>
 
@@ -701,7 +700,7 @@ export const QIDesignSystems = () => {
               showLineNumbers={true}
               theme={dracula}
               wrapLines={true}
-              codeBlock
+              codeblock
             />
           </section>
         </main>
