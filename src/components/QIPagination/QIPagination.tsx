@@ -1,25 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { SvgIcon } from "../Shared/SvgIcon";
-import "../../styles/tailwindcss/QIPagination.scss";
-
-interface QIPaginationProps {
-  pageCount: number;
-  onPageChange: (requestedPage: number) => void;
-  activePage: number;
-  setDockAlign?: (align: string) => void;
-  setShowDetails?: (show: boolean) => void;
-  removeLayerOnClose?: () => void;
-  setDeviceId?: (id: string | null) => void;
-  setHighlight?: (highlight: any | null) => void;
-}
-
-interface PageItemProps {
-  disabled?: boolean;
-  pageRef?: number;
-  onClick: () => void;
-  children: React.ReactNode;
-}
 
 /**
  * This is the Pagination Component
@@ -29,8 +10,28 @@ interface PageItemProps {
  * @param {number} activePage - Accepts a number which denotes the selected page number
  * @example
  *
- * <QIPagination pageCount={10} onPageChange={(requestedPage) => {}} activePage={1} />
+ * <QIPagination pageCount={10} onPageChange={(requestedPage)=>{}} activePage={1}>
  */
+
+interface QIPaginationProps {
+  pageCount: number;
+  onPageChange: (page: number) => void;
+  activePage: number;
+  setDockAlign?: (align: string) => void;
+  setShowDetails?: (show: boolean) => void;
+  removeLayerOnClose?: () => void;
+  setDeviceId?: (id: null) => void;
+  setHighlight?: (highlight: null) => void;
+}
+
+interface PageItemProps {
+  disabled?: boolean;
+  pageRef?: number;
+  onClick?: () => void;
+  children: React.ReactNode;
+  active?: boolean;
+}
+
 export const QIPagination: React.FC<QIPaginationProps> = ({
   pageCount,
   onPageChange,
@@ -41,7 +42,13 @@ export const QIPagination: React.FC<QIPaginationProps> = ({
   setDeviceId,
   setHighlight,
 }) => {
-  const PageItem: React.FC<PageItemProps> = ({ disabled = false, pageRef, onClick, children }) => {
+  const PageItem: React.FC<PageItemProps> = ({ 
+    disabled = false, 
+    pageRef, 
+    onClick, 
+    children,
+    active 
+  }) => {
     return (
       <li
         className={`qi-pagination_item ${pageRef === activePage ? "active" : ""} ${
@@ -49,157 +56,139 @@ export const QIPagination: React.FC<QIPaginationProps> = ({
         }`}
         onClick={onClick}
       >
-        <span className={`qi-pagination_item_link`}>{children}</span>
+        <span className="qi-pagination_item_link">{children}</span>
       </li>
     );
   };
 
-  const onPageChangeHandler = (requestPage: number): void => {
+  const onPageChangeHandler = (requestPage: number) => {
     if (requestPage !== activePage && requestPage >= 1 && requestPage <= pageCount) {
       onPageChange(requestPage);
       try {
-        setShowDetails?.(false);
-        setDockAlign?.("cross");
-        removeLayerOnClose?.();
-        setDeviceId?.(null);
-        setHighlight?.(null);
-      } catch (e) {}
+        if (setShowDetails) setShowDetails(false);
+        if (setDockAlign) setDockAlign("cross");
+        if (removeLayerOnClose) removeLayerOnClose();
+        if (setDeviceId) setDeviceId(null);
+        if (setHighlight) setHighlight(null);
+      } catch (e) {
+        console.error("Error in pagination handler:", e);
+      }
     }
   };
 
-  const manageEndPages = (): React.ReactElement[] => {
-    const items: React.ReactElement[] = [];
+  let items: React.ReactNode[] = [];
 
+  const manageEndPages = () => {
     if (activePage === 1) {
-      items.push(
+      items = [
         <PageItem key="page-1" pageRef={1} onClick={() => onPageChangeHandler(1)}>
           {1}
-        </PageItem>
-      );
-      if (pageCount > 1) {
-        items.push(
+        </PageItem>,
+        pageCount > 1 && (
           <PageItem key="page-2" pageRef={2} onClick={() => onPageChangeHandler(2)}>
             {2}
           </PageItem>
-        );
-      }
-      if (pageCount > 2) {
-        items.push(<PageItem key="ellipsis-1" onClick={() => {}}>...</PageItem>);
-        items.push(
+        ),
+        pageCount > 2 && <PageItem key="ellipsis-1" onClick={() => {}}>...</PageItem>,
+        pageCount > 2 && (
           <PageItem key="page-last" pageRef={pageCount} onClick={() => onPageChangeHandler(pageCount)}>
             {pageCount}
           </PageItem>
-        );
-      }
+        ),
+      ].filter(Boolean);
     } else if (activePage === pageCount) {
-      items.push(
+      items = [
         <PageItem key="page-1" pageRef={1} onClick={() => onPageChangeHandler(1)}>
           {1}
-        </PageItem>
-      );
-      if (pageCount > 2) {
-        items.push(<PageItem key="ellipsis-1" onClick={() => {}}>...</PageItem>);
-      }
-      items.push(
+        </PageItem>,
+        pageCount > 2 && <PageItem key="ellipsis-1" onClick={() => {}}>...</PageItem>,
         <PageItem key="page-prev" pageRef={activePage - 1} onClick={() => onPageChangeHandler(activePage - 1)}>
           {activePage - 1}
-        </PageItem>
-      );
-      items.push(
-        <PageItem key="page-active" pageRef={activePage} onClick={() => onPageChangeHandler(activePage)}>
+        </PageItem>,
+        <PageItem key="page-current" pageRef={activePage} onClick={() => onPageChangeHandler(activePage)}>
           {activePage}
-        </PageItem>
-      );
+        </PageItem>,
+      ].filter(Boolean);
     } else if (activePage === pageCount - 1) {
-      items.push(
+      items = [
         <PageItem key="page-1" pageRef={1} onClick={() => onPageChangeHandler(1)}>
           {1}
-        </PageItem>
-      );
-      if (pageCount > 2) {
-        items.push(<PageItem key="ellipsis-1" onClick={() => {}}>...</PageItem>);
-      }
-      items.push(
-        <PageItem key="page-active" pageRef={activePage} onClick={() => onPageChangeHandler(activePage)}>
+        </PageItem>,
+        pageCount > 2 && <PageItem key="ellipsis-1" onClick={() => {}}>...</PageItem>,
+        <PageItem key="page-current" pageRef={activePage} onClick={() => onPageChangeHandler(activePage)}>
           {activePage}
-        </PageItem>
-      );
-      if (pageCount > 2) {
-        items.push(
+        </PageItem>,
+        pageCount > 2 && (
           <PageItem key="page-last" pageRef={pageCount} onClick={() => onPageChangeHandler(pageCount)}>
             {pageCount}
           </PageItem>
-        );
-      }
+        ),
+      ].filter(Boolean);
     } else if (activePage === pageCount - 2) {
-      items.push(
+      items = [
         <PageItem key="page-1" pageRef={1} onClick={() => onPageChangeHandler(1)}>
           {1}
-        </PageItem>
-      );
-      if (pageCount > 2) {
-        items.push(<PageItem key="ellipsis-1" onClick={() => {}}>...</PageItem>);
-      }
-      items.push(
-        <PageItem key="page-active" pageRef={activePage} onClick={() => onPageChangeHandler(activePage)}>
+        </PageItem>,
+        pageCount > 2 && <PageItem key="ellipsis-1" onClick={() => {}}>...</PageItem>,
+        <PageItem key="page-current" pageRef={activePage} onClick={() => onPageChangeHandler(activePage)}>
           {activePage}
-        </PageItem>
-      );
-      if (pageCount > 2) {
-        items.push(
+        </PageItem>,
+        pageCount > 2 && (
           <PageItem key="page-next" pageRef={activePage + 1} onClick={() => onPageChangeHandler(activePage + 1)}>
             {activePage + 1}
           </PageItem>
-        );
-        items.push(
+        ),
+        pageCount > 2 && (
           <PageItem key="page-last" pageRef={pageCount} onClick={() => onPageChangeHandler(pageCount)}>
             {pageCount}
           </PageItem>
-        );
-      }
+        ),
+      ].filter(Boolean);
     } else {
-      items.push(
-        <PageItem key="page-active" pageRef={activePage} onClick={() => onPageChangeHandler(activePage)}>
+      items = [
+        <PageItem key="page-current" pageRef={activePage} onClick={() => onPageChangeHandler(activePage)}>
           {activePage}
-        </PageItem>
-      );
-      if (pageCount > activePage + 1) {
-        items.push(
+        </PageItem>,
+        pageCount > activePage + 1 && (
           <PageItem key="page-next" pageRef={activePage + 1} onClick={() => onPageChangeHandler(activePage + 1)}>
             {activePage + 1}
           </PageItem>
-        );
-      }
-      if (pageCount > activePage + 2) {
-        items.push(<PageItem key="ellipsis-1" onClick={() => {}}>...</PageItem>);
-        items.push(
+        ),
+        pageCount > activePage + 2 && <PageItem key="ellipsis-1" onClick={() => {}}>...</PageItem>,
+        pageCount > activePage + 2 && (
           <PageItem key="page-last" pageRef={pageCount} onClick={() => onPageChangeHandler(pageCount)}>
             {pageCount}
           </PageItem>
-        );
-      }
+        ),
+      ].filter(Boolean);
     }
-
-    return items;
   };
-
-  let items: React.ReactElement[] = [];
 
   if (pageCount >= 5) {
     for (let i = activePage - 2; i <= activePage + 2 && i <= pageCount; i += 1) {
       if (i >= 1) {
         items.push(
-          <PageItem key={`page-${i}`} pageRef={i} onClick={() => onPageChangeHandler(i)}>
+          <PageItem 
+            key={`page-${i}`} 
+            pageRef={i} 
+            active={i === activePage} 
+            onClick={() => onPageChangeHandler(i)}
+          >
             {i}
           </PageItem>
         );
       }
     }
-    manageEndPages(); // Note: This was originally called but not used. Consider integrating its result if intended.
+    manageEndPages();
   } else {
     for (let i = 1; i <= pageCount; i += 1) {
       items.push(
-        <PageItem key={`page-${i}`} pageRef={i} onClick={() => onPageChangeHandler(i)}>
+        <PageItem 
+          key={`page-${i}`} 
+          pageRef={i} 
+          active={i === activePage} 
+          onClick={() => onPageChangeHandler(i)}
+        >
           {i}
         </PageItem>
       );
@@ -215,7 +204,7 @@ export const QIPagination: React.FC<QIPaginationProps> = ({
         <SvgIcon name="up-arrow" wrapperClass="previous" svgClass="" />
       </PageItem>
       {items.map((Item, index) => (
-        <React.Fragment key={index}>{Item}</React.Fragment>
+        <React.Fragment key={`item-${index}`}>{Item}</React.Fragment>
       ))}
       <PageItem
         disabled={activePage === pageCount}
@@ -229,7 +218,9 @@ export const QIPagination: React.FC<QIPaginationProps> = ({
     </ul>
   );
 };
+
 QIPagination.propTypes = {
   pageCount: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
+  activePage: PropTypes.number.isRequired,
 };
