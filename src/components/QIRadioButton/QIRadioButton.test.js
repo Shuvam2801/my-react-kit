@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import QIRadioButton from './QIRadioButton';
+import {QIRadioButton} from './QIRadioButton';
 
 test('renders QIRadioButton with radio options', () => {
     const radioObjects = [

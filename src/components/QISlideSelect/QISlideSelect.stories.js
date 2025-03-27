@@ -1,5 +1,7 @@
 import React from 'react';
 import { QISlideSelect } from './QISlideSelect';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 export default {
     title: 'Components/QISlideSelect',

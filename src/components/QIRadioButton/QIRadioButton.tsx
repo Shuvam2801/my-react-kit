@@ -51,4 +51,4 @@ QIRadioButton.propTypes = {
     ).isRequired,
     name: PropTypes.string,
 };
-export default QIRadioButton;
+

@@ -1,5 +1,5 @@
 import React from 'react';
-//import '../../styles/tailwindcss/QIButton.scss';
+import '../../styles/tailwindcss/QIButton.scss';
 /**
 * This is button which support icons.
 *

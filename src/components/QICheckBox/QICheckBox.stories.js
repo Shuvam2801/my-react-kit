@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import QICheckBox from './QICheckBox';
+import {QICheckBox} from './QICheckBox';
 
 export default {
   title: 'Components/QICheckBox',
@@ -44,8 +44,8 @@ ReadOnly.args = {
   onChange: (value) => console.log('Checkbox value:', value),
 };
 
-export const WithError = Template.bind({});
-WithError.args = {
+export const WithRequirement = Template.bind({});
+WithRequirement.args = {
   label: 'I Agree',
   error: 'This field is required',
   onChange: (value) => console.log('Checkbox value:', value),

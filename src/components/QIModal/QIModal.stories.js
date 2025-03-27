@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { QIModal, QIModalBody, QIModalHeader, QIModalFooter } from './QIModal';
-import QIButton from '../QIButton/QIButton';
+import {QIButton} from '../QIButton/QIButton';
 
 export default {
     title: 'Components/QIModal',
