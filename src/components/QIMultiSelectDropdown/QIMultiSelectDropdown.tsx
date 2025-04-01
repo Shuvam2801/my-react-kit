@@ -367,7 +367,7 @@ export const QIMultiSelectDropDown: React.FC<QIMultiSelectDropDownProps> = ({
                       placeholder={onSearchPlaceHolder}
                       className="qi-input_text chip-search_text"
                       onChange={(value: string) => handleSearch(value)}
-                      icon={{ src: `${sprite}#search`, className: "search-icon" }}
+                      icon={{ src: `search`, className: "search-icon" }}
                       focus={true}
                     />
                   </form>

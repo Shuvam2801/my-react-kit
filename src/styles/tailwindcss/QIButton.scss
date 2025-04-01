@@ -3,6 +3,7 @@
   
     align-items: center;
     height: 50px;
+    border:none;
   
     &_label {
       @apply w-full text-center;
@@ -10,7 +11,7 @@
   
     &.primary {
       @apply bg-orange-600;
-  
+      
       transition: all 0.3s ease;
   
       &:hover {
@@ -21,6 +22,7 @@
     &.secondary {
       background-color: #e7edf5;
       transition: all 0.3s ease;
+      
   
       &:hover {
         background-color: #31c786;

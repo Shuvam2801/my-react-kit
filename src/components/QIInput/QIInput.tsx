@@ -33,12 +33,20 @@ export const QIInput: React.FC<QIInputProps> = ({
 }) => {
   const [error, setError] = useState<string>(''); 
   const inputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (focus && inputRef.current) {
       inputRef.current.focus();
     }
   }, [focus]);
+
+  useEffect(() => {
+    // Ensure the container has proper dimensions
+    if (containerRef.current && inputRef.current) {
+      containerRef.current.style.width = inputRef.current.offsetWidth + 'px';
+    }
+  }, []);
 
   const isEmailValid = (inputValue: string): boolean => {
     return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(inputValue);
@@ -50,23 +58,14 @@ export const QIInput: React.FC<QIInputProps> = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     onChange(e.target.value); // Allow users to type freely
-
-    if (type === 'email') {
-      setError(''); // Reset error on typing
-    } 
-    else if (type === 'number') {
-      setError(''); 
-    } 
-    else {
-      setError('');
-    }
+    setError(''); // Reset error on typing
   };
 
   const handleBlur = (): void => {
-    if (type === 'email' && !isEmailValid(value)) {
+    if (type === 'email' && value && !isEmailValid(value)) {
       setError('Invalid email address'); // Show error message
     } 
-    else if (type === 'number' && !isNumberValid(value)) {
+    else if (type === 'number' && value && !isNumberValid(value)) {
       setError('Only numeric values are allowed'); // Ensure only integers are allowed
     } 
     else {
@@ -74,12 +73,15 @@ export const QIInput: React.FC<QIInputProps> = ({
     }
   };
 
+  const iconClass = icon?.className || '';
+  const iconSrc = icon?.src || '';
+
   return (
-    <div>
-      {icon && icon.src && (
-        <span className={`icon-wrapper ${icon.className || ''}`}>
+    <div className="qi-input-container" ref={containerRef}>
+      {iconSrc && iconAlign === 'left' && (
+        <span className={`icon-wrapper ${iconClass}`}>
           <svg className="icon">
-            <use href={`${sprite}#${icon.src}`}></use>
+            <use href={`${sprite}#${iconSrc}`}></use>
           </svg>
         </span>
       )}
@@ -89,14 +91,18 @@ export const QIInput: React.FC<QIInputProps> = ({
         onChange={handleChange}
         onBlur={handleBlur} 
         disabled={disabled}
-        className={`qi-input ${className || ''} ${size || ''}`}
+        className={`qi-input ${className} ${size} ${iconSrc ? (iconAlign === 'right' ? 'input-with-right-icon' : 'input-with-left-icon') : ''}`}
         placeholder={placeholder}
         ref={inputRef}
       />
-      {error && <p data-testid="error-message" style={{ color: 'red', fontSize: '12px' }}>{error}</p>} {/* Display error */}
+      {iconSrc && iconAlign === 'right' && (
+        <span className={`icon-wrapper icon-right ${iconClass}`}>
+          <svg className="icon">
+            <use href={`${sprite}#${iconSrc}`}></use>
+          </svg>
+        </span>
+      )}
+      {error && <p data-testid="error-message" style={{ color: 'red', fontSize: '12px' }}>{error}</p>}
     </div>
   );
 };
-
-export default QIInput;
-

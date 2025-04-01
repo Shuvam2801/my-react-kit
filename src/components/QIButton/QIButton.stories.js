@@ -1,6 +1,7 @@
 import React from 'react';
 import {QIButton} from './QIButton';
 import sprite from '../../assets/icons.svg';
+//import '../../styles/tailwindcss/QIButton.scss';
 
 export default {
   title: 'Components/QIButton',
@@ -10,14 +11,17 @@ export default {
 const Template = (args) => <QIButton {...args} />;
 
 export const Default = Template.bind({});
+Default.storyName = 'Primary';
 Default.args = {
   children: 'Click Me',
   type: 'button',
+  className:"qi-btn primary",
   disabled: false,
   loading: false,
 };
 
 export const WithIcon = Template.bind({});
+WithIcon.storyName = 'Secondary with Icon';
 WithIcon.args = {
   children: 'Upload',
   icon: {
@@ -27,6 +31,7 @@ WithIcon.args = {
     align: 'left',
   },
   type: 'button',
+  className:"qi-btn secondary",
   disabled: false,
   loading: false,
 };
