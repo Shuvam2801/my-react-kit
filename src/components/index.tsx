@@ -13,3 +13,4 @@ export { QITracksListCard } from './QITrackListCard/QITrackListCard';
 export { QIPagination } from './QIPagination/QIPagination';
 export { QIMultiSelectDropDown } from './QIMultiSelectDropdown/QIMultiSelectDropdown';
 export { QIDropdown } from './QIDropdown/QIDropdown';
+export { QIList } from './QIList/QIList';

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { QIMultiSelectDropDown, QICheckBox, QIButton, QIInput, QISwitch, QISelect, QIRadioButton, QITracksListCard, QISpinner, QISlideSelect, QIModal, QIModalBody, QIModalHeader, QIModalFooter, QIFileUploader, QIPagination } from "../components";
+import { QIMultiSelectDropDown, QICheckBox, QIButton, QIInput, QISwitch, QISelect, QIRadioButton, QITracksListCard, QISpinner, QISlideSelect, QIModal, QIModalBody, QIModalHeader, QIModalFooter, QIFileUploader, QIPagination, QIList } from "../components";
 
 import "../styles/tailwindcss/index.scss";
 import "./style.scss";
@@ -8,10 +8,11 @@ import { QITable } from '../components/QITable/QITable';
 import { tableData } from "../data/tableData.js";
 import moment from 'moment';
 import { CopyBlock, dracula } from "react-code-blocks";
-import { ButtonText, CheckBoxText, FileUploaderText, InputText, ListCardText, ModalText, MultiSelectText, PaginationText, RadioButtonText, SelectText, SliderText, SpinnerText, SwitchText, TableText } from './helper/codeBlock.js';
+import { ButtonText, CheckBoxText, FileUploaderText, InputText, ListCardText, ListText, ModalText, MultiSelectText, PaginationText, RadioButtonText, SelectText, SliderText, SpinnerText, SwitchText, TableText } from './helper/codeBlock.js';
 import inputProp from "../assets/input_prop.png";
 import switchPropImg from "../assets/switch.png";
 import { qiswitchPropImg, radioPropImg, slidePaginationField, slideProp, tripDataImg } from '../assets/index.ts';
+
 
 export const QIDesignSystems = () => {
   const [selected, setSelected] = useState(null)
@@ -181,7 +182,7 @@ export const QIDesignSystems = () => {
   };
 
   const sideBarItems = [
-    'Button', 'Checkbox', 'Input', 'Select', 'Switch', 'Radio Button', 'List Card', 'Spinner', 'Slider', 'Table', 'Modal', 'File Uploader', 'Pagination','Multi-select Dropdown'
+    'Button', 'Checkbox', 'Input', 'Select', 'Switch', 'Radio Button', 'List Card', 'Spinner', 'Slider', 'Table', 'Modal', 'File Uploader', 'Pagination','Multi-select Dropdown', 'List'
   ]
 
   useEffect(() => {
@@ -215,9 +216,62 @@ export const QIDesignSystems = () => {
     )
   })
 
+  const listColumns = [
+    {
+      label: "ID",
+      key: "id",
+      sortable: true,
+      width: "80px"
+    },
+    {
+      label: "Name",
+      key: "name",
+      sortable: true,
+      width: "200px"
+    },
+    {
+      label: "Report Type",
+      key: "report_type",
+      sortable: true,
+      width: "150px"
+    },
+    {
+      label: "Status",
+      key: "status",
+      sortable: true,
+      width: "120px",
+      type: "component",
+      component: ({ data }) => (
+        <span className={`status-badge ${data.status}`} style={{
+          backgroundColor: data.status === 'completed' ? '#e6f7e6' : '#fff3e0',
+          color: data.status === 'completed' ? '#2e7d32' : '#e65100',
+          padding: '4px 8px',
+          borderRadius: '4px',
+          fontSize: '12px'
+        }}>
+          {data.status === 'completed' ? 'Completed' : 'In Progress'}
+        </span>
+      )
+    },
+    {
+      label: "Created By",
+      key: "created_by",
+      width: "150px"
+    }
+  ];
+
+  const listHandler = {
+    sortingHandler: (key, sortType) => {
+      console.log(`Sorting by ${key} in ${sortType} order`);
+    },
+    rowHandler: (rowData) => {
+      console.log('Row clicked:', rowData);
+    }
+  };
+
   return (
     <>
-      <h1 className="page-title">React Kit Components</h1>
+      <h1 className="page-title">React Kit Component</h1>
       <div className='content-header'>
         <h1 style={{ fontSize: '16px', fontWeight: 'normal' }}>React Kit Documentation</h1>
         <p>Welcome to the documentation page. Here you'll find information on how to use the components.</p>
@@ -225,7 +279,7 @@ export const QIDesignSystems = () => {
 
       <div className="app-container">
         <nav className="sidebar">
-          <h2 className="side-sub-title">QI Components</h2>
+          <h2 className="side-sub-title">QI Component</h2>
 
           <ul className="component-list">
             {renderSideBarItems}
@@ -250,7 +304,7 @@ export const QIDesignSystems = () => {
             </QIButton>
 
             <pre className="code-exaple">
-              <p>Documentation for the Components</p>
+              <p>Documentation for the Component</p>
               <br />
               <table><thead><tr><th>Prop Name</th><th>Type</th><th>Required</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>type</code></td><td><code>string</code></td><td>No</td><td><code>"button"</code></td><td>Defines the button type (e.g., <code>"button"</code>, <code>"submit"</code>, <code>"reset"</code>).</td></tr><tr><td><code>size</code></td><td><code>string</code></td><td>No</td><td><code>"md"</code></td><td>Controls the button size. Options may include <code>"sm"</code>, <code>"md"</code>, <code>"lg"</code> for small, medium, and large.</td></tr><tr><td><code>className</code></td><td><code>string</code></td><td>No</td><td><code>""</code></td><td>Custom CSS classes for additional styling.</td></tr><tr><td><code>variant</code></td><td><code>string</code></td><td>No</td><td><code>"default"</code></td><td>Defines the button style variant, such as <code>"primary"</code>, <code>"secondary"</code>, <code>"link"</code>.</td></tr><tr><td><code>disabled</code></td><td><code>boolean</code></td><td>No</td><td><code>false</code></td><td>Disables the button if set to <code>true</code>, preventing clicks and greying out the style.</td></tr><tr><td><code>icon</code></td><td><code>ReactNode</code></td><td>No</td><td><code>null</code></td><td>Allows an icon component or JSX element to be displayed inside the button.</td></tr><tr><td><code>loading</code></td><td><code>boolean</code></td><td>No</td><td><code>false</code></td><td>Shows a loading spinner or indicator when set to <code>true</code>, typically disabling interaction.</td></tr><tr><td><code>children</code></td><td><code>ReactNode</code></td><td>Yes</td><td></td><td>Button label or content, such as <code>"Login"</code>.</td></tr></tbody></table>
             </pre>
@@ -275,7 +329,7 @@ export const QIDesignSystems = () => {
             />
 
             <pre className="code-exaple">
-              <p>Documentation for the Components</p>
+              <p>Documentation for the Component</p>
               <br />
                 
                 <ul>
@@ -306,7 +360,7 @@ export const QIDesignSystems = () => {
             />
 
             <pre className="code-exaple">
-              <p>Documentation for the Components</p>
+              <p>Documentation for the Component</p>
               <table><thead><tr><th>Prop Name</th><th>Type</th><th>Required</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>type</code></td><td><code>string</code></td><td>No</td><td><code>"text"</code></td><td>Specifies the type of input, e.g., <code>"text"</code>, <code>"password"</code>, <code>"email"</code>.</td></tr><tr><td><code>value</code></td><td><code>string</code></td><td>Yes</td><td></td><td>Sets the current value of the input. This should be a controlled value.</td></tr><tr><td><code>onChange</code></td><td><code>function</code></td><td>Yes</td><td></td><td>Function to handle changes to the input value.</td></tr><tr><td><code>placeholder</code></td><td><code>string</code></td><td>No</td><td><code>""</code></td><td>Placeholder text displayed when the input is empty.</td></tr><tr><td><code>label</code></td><td><code>string</code></td><td>No</td><td><code>""</code></td><td>A label for the input, displayed above or beside the input field.</td></tr><tr><td><code>disabled</code></td><td><code>boolean</code></td><td>No</td><td><code>false</code></td><td>If <code>true</code>, disables the input field.</td></tr><tr><td><code>maxLength</code></td><td><code>number</code></td><td>No</td><td><code>null</code></td><td>Limits the maximum number of characters that can be entered.</td></tr><tr><td><code>style</code></td><td><code>object</code></td><td>No</td><td><code>{}</code></td><td>Inline styles to apply to the input component.</td></tr><tr><td><code>className</code></td><td><code>string</code></td><td>No</td><td><code>""</code></td><td>Custom class name(s) for additional styling.</td></tr></tbody></table>
             </pre>
 
@@ -330,7 +384,7 @@ export const QIDesignSystems = () => {
             </QISelect>
 
             <pre className="code-exaple">
-              <p>Documentation for the Components</p>
+              <p>Documentation for the Component</p>
               <table><thead><tr><th>Prop Name</th><th>Type</th><th>Required</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>label</code></td><td><code>string</code></td><td>Yes</td><td></td><td>Specifies a label for the select input, displayed above or next to the dropdown.</td></tr><tr><td><code>value</code></td><td><code>string</code></td><td>Yes</td><td></td><td>Sets the selected value of the dropdown. This should be a controlled value.</td></tr><tr><td><code>onChange</code></td><td><code>function</code></td><td>Yes</td><td></td><td>Event handler function to capture changes to the dropdown selection.</td></tr><tr><td><code>children</code></td><td><code>ReactNode</code></td><td>Yes</td><td></td><td>Contains <code>&lt;option&gt;</code> elements that represent selectable items in the dropdown.</td></tr></tbody></table>
             </pre>
 
@@ -355,7 +409,7 @@ export const QIDesignSystems = () => {
             />
 
             <pre className="code-exaple">
-              <p>Documentation for the Components</p>
+              <p>Documentation for the Component</p>
               <br />
               <table>
                 <thead>
@@ -416,7 +470,7 @@ export const QIDesignSystems = () => {
             <QIRadioButton radioObjects={radioObject} />
 
             <pre className="code-exaple">
-              <p>Documentation for the Components</p>
+              <p>Documentation for the Component</p>
               <table><thead><tr><th>Prop Name</th><th>Type</th><th>Required</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>radioObjects</code></td><td><code>array</code></td><td>Yes</td><td></td><td>An array of objects representing each radio button option. Each object should have <code>label</code> and <code>value</code> properties.</td></tr></tbody></table>
             </pre>
 
@@ -436,7 +490,7 @@ export const QIDesignSystems = () => {
             <QITracksListCard key={1} data={tripData} />
 
             <pre className="code-exaple">
-              <p>Documentation for the Components</p>
+              <p>Documentation for the Component</p>
               <table><thead><tr><th>Prop Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody><tr><td><code>key</code></td><td><code>number</code></td><td>Yes</td><td>Unique key identifier for each card (required when rendering lists in React).</td></tr><tr><td><code>data</code></td><td><code>object</code></td><td>Yes</td><td>Contains trip details, structured as shown in <code>tripData</code>, to display in the card.</td></tr></tbody></table>
 
               <br />
@@ -460,7 +514,7 @@ export const QIDesignSystems = () => {
             <QISpinner />
 
             <pre className="code-exaple">
-              <p>Documentation for the Components</p>
+              <p>Documentation for the Component</p>
             </pre>
 
             <CopyBlock
@@ -479,7 +533,7 @@ export const QIDesignSystems = () => {
             <QISlideSelect pagination={pagination} />
 
             <pre className="code-exaple">
-              <p>Documentation for the Components</p>
+              <p>Documentation for the Component</p>
               <br />
               <h2>Prop</h2>
               <table><thead><tr><th>Prop Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody><tr><td><code>pagination</code></td><td><code>object</code></td><td>Yes</td><td>An object containing the pagination details, including current page, items per page, and handlers for updating them.</td></tr></tbody></table>
@@ -504,7 +558,7 @@ export const QIDesignSystems = () => {
             <QITable headers={headers} data={tableData || []} />
 
             <pre className="code-exaple">
-              <p>Documentation for the Components</p>
+              <p>Documentation for the Component</p>
             </pre>
 
             <CopyBlock
@@ -557,7 +611,7 @@ export const QIDesignSystems = () => {
               </QIModalFooter>
             </QIModal>
             <pre className="code-exaple">
-              <p>Documentation for the Components</p>
+              <p>Documentation for the Component</p>
             </pre>
 
             <CopyBlock
@@ -580,7 +634,7 @@ export const QIDesignSystems = () => {
             />
 
             <pre className="code-exaple">
-              <p>Documentation for the Components</p>
+              <p>Documentation for the Component</p>
             </pre>
 
             <CopyBlock
@@ -606,7 +660,7 @@ export const QIDesignSystems = () => {
             />
 
             <pre className="code-exaple">
-              <p>Documentation for the Components</p>
+              <p>Documentation for the Component</p>
             </pre>
 
             <CopyBlock
@@ -635,7 +689,7 @@ export const QIDesignSystems = () => {
             
 
             <pre className="code-exaple">
-              <p>Documentation for the Components</p>
+              <p>Documentation for the Component</p>
               <br />
               <table>
                 <thead>
@@ -697,6 +751,97 @@ export const QIDesignSystems = () => {
             <CopyBlock
               language={"jsx"}
               text={MultiSelectText}
+              showLineNumbers={true}
+              theme={dracula}
+              wrapLines={true}
+              codeblock
+            />
+          </section>
+
+          <section id='list' className="element-item">
+            <h2 className="sub-title">List</h2>
+            
+            <div style={{ width: '100%', maxWidth: '900px' }}>
+              <QIList
+                columns={listColumns}
+                data={tableData}
+                handler={listHandler}
+                status={[]}               
+                scrollbarHeight="17.5rem" // Reduced height to ensure scrolling is needed
+                customScrollbar={true}
+              />
+            </div>
+
+            <pre className="code-exaple">
+              <p>Documentation for the Component</p>
+              <br />
+              <table>
+                <thead>
+                  <tr>
+                    <th>Prop Name</th>
+                    <th>Type</th>
+                    <th>Required</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>columns</code></td>
+                    <td><code>array</code></td>
+                    <td>Yes</td>
+                    <td>-</td>
+                    <td>Array of column definitions with properties like label, key, sortable, etc.</td>
+                  </tr>
+                  <tr>
+                    <td><code>data</code></td>
+                    <td><code>array</code></td>
+                    <td>Yes</td>
+                    <td><code>[]</code></td>
+                    <td>Array of data objects to display in the list</td>
+                  </tr>
+                  <tr>
+                    <td><code>handler</code></td>
+                    <td><code>object</code></td>
+                    <td>Yes</td>
+                    <td>-</td>
+                    <td>Object containing handler functions for various interactions</td>
+                  </tr>
+                  <tr>
+                    <td><code>status</code></td>
+                    <td><code>array</code></td>
+                    <td>No</td>
+                    <td><code>[]</code></td>
+                    <td>Array of selected item identifiers</td>
+                  </tr>
+                  <tr>
+                    <td><code>initialRows</code></td>
+                    <td><code>number</code></td>
+                    <td>No</td>
+                    <td><code>5</code></td>
+                    <td>Number of rows to display initially before scrolling</td>
+                  </tr>
+                  <tr>
+                    <td><code>scrollbarHeight</code></td>
+                    <td><code>string</code></td>
+                    <td>No</td>
+                    <td><code>'25rem'</code></td>
+                    <td>Height of the scrollable area</td>
+                  </tr>
+                  <tr>
+                    <td><code>customScrollbar</code></td>
+                    <td><code>boolean</code></td>
+                    <td>No</td>
+                    <td><code>true</code></td>
+                    <td>Enables custom scrollbar styling</td>
+                  </tr>
+                </tbody>
+              </table>
+            </pre>
+
+            <CopyBlock
+              language={"jsx"}
+              text={ListText}
               showLineNumbers={true}
               theme={dracula}
               wrapLines={true}

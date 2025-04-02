@@ -148,3 +148,70 @@ const handleMultiSelectChange = (selected) => {
   onSearchPlaceHolder="Search items..."
 />
 `;
+export const ListText = `
+// List columns configuration
+const listColumns = [
+  {
+    label: "ID",
+    key: "id",
+    sortable: true,
+    width: "80px"
+  },
+  {
+    label: "Name",
+    key: "name",
+    sortable: true,
+    width: "200px"
+  },
+  {
+    label: "Report Type",
+    key: "report_type",
+    sortable: true,
+    width: "150px"
+  },
+  {
+    label: "Status",
+    key: "status",
+    sortable: true,
+    width: "120px",
+    type: "component",
+    component: ({ data }) => (
+      <span className={\`status-badge \${data.status}\`} style={{
+        backgroundColor: data.status === 'completed' ? '#e6f7e6' : '#fff3e0',
+        color: data.status === 'completed' ? '#2e7d32' : '#e65100',
+        padding: '4px 8px',
+        borderRadius: '4px',
+        fontSize: '12px'
+      }}>
+        {data.status === 'completed' ? 'Completed' : 'In Progress'}
+      </span>
+    )
+  },
+  {
+    label: "Created By",
+    key: "created_by",
+    width: "150px"
+  }
+];
+
+// List handler functions
+const listHandler = {
+  sortingHandler: (key, sortType) => {
+    console.log(\`Sorting by \${key} in \${sortType} order\`);
+  },
+  rowHandler: (rowData) => {
+    console.log('Row clicked:', rowData);
+  }
+};
+
+// Using the QIList component with scrolling
+<QIList
+  columns={listColumns}
+  data={tableData}
+  handler={listHandler}
+  status={[]}
+  initialRows={5}
+  scrollbarHeight="17.5rem"
+  customScrollbar={true}
+/>
+`;

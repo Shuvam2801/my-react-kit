@@ -12,8 +12,6 @@
 
 .qi-input-container .icon-wrapper.icon-right {
   @apply right-2;
-  /* Make sure the icon stays within the boundaries of the input */
-  @apply pointer-events-none; /* This prevents the icon from capturing mouse events */
 }
 
 .qi-input-container .icon-wrapper.search-icon svg.icon {
@@ -21,7 +19,7 @@
 }
 
 .qi-input {
-  @apply flex px-2 py-1 border border-[#c5d2e0] rounded;
+  @apply flex px-2 py-1 border border-[#c5d2e0] rounded; /* Removed mb-4 */
   @apply transition-all duration-300;
 }
 
@@ -30,7 +28,7 @@
 }
 
 .qi-input.input-with-right-icon {
-  @apply pr-8; /* This should already be creating space for the icon */
+  @apply pr-8;
 }
 
 .qi-input.sm {
@@ -58,7 +56,7 @@
   @apply outline-none ring-1 ring-[#0767d0];
 }
 
-.qi-input:disabled {
+.qi-input.disabled {
   @apply bg-gray-100 cursor-not-allowed;
 }
 

@@ -1,0 +1,110 @@
+.qi-list {
+  @apply bg-white flex flex-col;
+  width: 100%;
+  
+  &_header,
+  &_list_item {
+    @apply flex items-center justify-between border-b border-solid border-slate-200;
+    min-height: 3.5em;
+  }
+
+  &_header {
+    @apply font-bold sticky top-0 z-10;
+    background-color: #e7edf5;
+  }
+
+  &_body {
+    @apply overflow-auto;
+    scrollbar-width: thin;
+    max-height: inherit;
+    
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 4px;
+      
+      &:hover {
+        background: #a1a1a1;
+      }
+    }
+  }
+
+  &_list {
+    @apply p-0 m-0 list-none w-full;
+    
+    &_item-wrapper {
+      transition: all 0.25s ease;
+      
+      &:hover {
+        @apply bg-sky-50;
+      }
+      
+      &.striped {
+        background-color: #f9fbfd;
+      }
+    }
+    
+    &_item {
+      @apply flex items-center justify-between w-full;
+      min-height: 3.5em;
+      
+      &.selected {
+        @apply bg-blue-100;
+      }
+    }
+  }
+
+  &_column {
+    @apply px-4 py-2 truncate;
+    min-width: 80px;
+    
+    &.status {
+      @apply text-center;
+      width: 100px;
+    }
+    
+    &.action {
+      @apply flex justify-center;
+      overflow: unset;
+      width: 80px;
+    }
+  }
+  
+  &_empty {
+    @apply w-full text-center py-8 text-gray-500;
+  }
+  
+  &.custom-scrollbar {
+    .qi-list_body {
+      scrollbar-width: thin;
+      
+      &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 4px;
+        
+        &:hover {
+          background: #a1a1a1;
+        }
+      }
+    }
+  }
+}
