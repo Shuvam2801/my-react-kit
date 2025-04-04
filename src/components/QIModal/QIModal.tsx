@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes, { element } from "prop-types";
 import sprite from "../../assets/icons.svg";
-import 'bootstrap/dist/css/bootstrap.min.css';
+//import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../styles/tailwindcss/QIModal.scss';
 /**
  * This is the Modal Component

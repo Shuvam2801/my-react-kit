@@ -1,9 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { QIModal, QIModalHeader, QIModalBody, QIModalFooter } from './QIModal';
+import { QIButton } from '../QIButton/QIButton';
+import { QIInput } from '../QIInput/QIInput';
+
+// Create a modal container for Storybook
+const ModalContainer = ({ children }) => {
+  const [container, setContainer] = useState(null);
+  
+  useEffect(() => {
+    // Create a div to serve as our portal container
+    const portalRoot = document.createElement('div');
+    portalRoot.setAttribute('id', 'root');
+    document.body.appendChild(portalRoot);
+    setContainer(portalRoot);
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.removeChild(portalRoot);
+    };
+  }, []);
+  
+  return container ? children : null;
+};
 
 export default {
   title: 'Components/QIModal',
   component: QIModal,
+  decorators: [
+    (Story) => (
+      <ModalContainer>
+        <Story />
+      </ModalContainer>
+    ),
+  ],
   parameters: {
     layout: 'centered',
     backgrounds: {
@@ -14,7 +43,7 @@ export default {
     size: {
       control: {
         type: 'select',
-        options: ['small', 'medium', 'large', 'xlarge'],
+        options: ['small', 'medium', 'large'],
       },
       defaultValue: 'large',
     },
@@ -45,12 +74,12 @@ const Template = (args) => {
   
   return (
     <>
-      <button 
+      <QIButton 
         onClick={handleShow} 
-        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none"
+        className="qi-btn primary"
       >
         Open Modal
-      </button>
+      </QIButton>
       
       <QIModal 
         {...args} 
@@ -62,18 +91,18 @@ const Template = (args) => {
           <p>This is a simple modal body content.</p>
         </QIModalBody>
         <QIModalFooter>
-          <button 
+          <QIButton 
             onClick={handleClose}
-            className="px-4 py-2 bg-gray-300 text-gray-800 rounded-md mr-2 hover:bg-gray-400"
+            className="qi-btn secondary"
           >
             Close
-          </button>
-          <button 
+          </QIButton>
+          <QIButton 
             onClick={handleClose}
-            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            className="qi-btn primary"
           >
             Save Changes
-          </button>
+          </QIButton>
         </QIModalFooter>
       </QIModal>
     </>
@@ -108,13 +137,6 @@ Large.args = {
   backdropView: true,
 };
 
-export const XLarge = Template.bind({});
-XLarge.args = {
-  size: 'xlarge',
-  backdrop: true,
-  backdropView: true,
-};
-
 export const NoBackdropClick = Template.bind({});
 NoBackdropClick.args = {
   size: 'large',
@@ -138,12 +160,12 @@ export const LongContentModal = (args) => {
   
   return (
     <>
-      <button 
+      <QIButton 
         onClick={handleShow} 
-        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none"
+        className="qi-btn primary"
       >
         Open Long Content Modal
-      </button>
+      </QIButton>
       
       <QIModal 
         {...args} 
@@ -164,40 +186,43 @@ export const LongContentModal = (args) => {
           </div>
         </QIModalBody>
         <QIModalFooter>
-          <button 
+          <QIButton 
             onClick={handleClose}
-            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            className="qi-btn secondary"
           >
             Close
-          </button>
+          </QIButton>
         </QIModalFooter>
       </QIModal>
     </>
   );
 };
 
-export const LongContent = LongContentModal.bind({});
-LongContent.args = {
-  size: 'large',
-  backdrop: true,
-  backdropView: true,
-};
-
 // Template for form within modal
 export const FormModal = (args) => {
   const [show, setShow] = useState(args.show || false);
-  
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  // Remove TypeScript annotation from handleInputChange
+  const handleInputChange = (field) => (value) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
   
   return (
     <>
-      <button 
+      <QIButton 
         onClick={handleShow} 
-        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none"
+        className="qi-btn primary"
       >
         Open Form Modal
-      </button>
+      </QIButton>
       
       <QIModal 
         {...args} 
@@ -209,20 +234,24 @@ export const FormModal = (args) => {
           <form className="space-y-4">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
-              <input
+              <QIInput
                 type="text"
-                id="name"
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                value={formData.name}
+                onChange={handleInputChange('name')}
                 placeholder="Your name"
+                size="md"
+                className="mt-1 block w-full"
               />
             </div>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-              <input
+              <QIInput
                 type="email"
-                id="email"
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                value={formData.email}
+                onChange={handleInputChange('email')}
                 placeholder="your.email@example.com"
+                size="md"
+                className="mt-1 block w-full"
               />
             </div>
             <div>
@@ -230,39 +259,37 @@ export const FormModal = (args) => {
               <textarea
                 id="message"
                 rows={4}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md  focus:outline-none"
                 placeholder="Your message here..."
               ></textarea>
             </div>
           </form>
         </QIModalBody>
         <QIModalFooter>
-          <button 
+          <QIButton 
             onClick={handleClose}
-            className="px-4 py-2 bg-gray-300 text-gray-800 rounded-md mr-2 hover:bg-gray-400"
+            className="qi-btn secondary"
           >
             Cancel
-          </button>
-          <button 
+          </QIButton>
+          <QIButton 
             onClick={handleClose}
-            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            className="qi-btn primary"
           >
             Submit
-          </button>
+          </QIButton>
         </QIModalFooter>
       </QIModal>
     </>
   );
 };
-
-export const Form = FormModal.bind({});
-Form.args = {
-  size: 'medium',
-  backdrop: true,
-  backdropView: true,
+FormModal.args = {
+  size: 'large', // You can keep or adjust other args as needed
+  backdrop: false, // This disables the backdrop click-to-close
+  backdropView: true, // This keeps the backdrop visible (optional, adjust as needed)
 };
 
-// Template for custom header/no close button
+// Template for custom header/no close icon button
 export const CustomHeaderModal = (args) => {
   const [show, setShow] = useState(args.show || false);
   
@@ -271,12 +298,12 @@ export const CustomHeaderModal = (args) => {
   
   return (
     <>
-      <button 
+      <QIButton 
         onClick={handleShow} 
-        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none"
+        className="qi-btn primary"
       >
         Open Custom Header Modal
-      </button>
+      </QIButton>
       
       <QIModal 
         {...args} 
@@ -287,24 +314,18 @@ export const CustomHeaderModal = (args) => {
           <h4 className="text-lg font-bold text-blue-800">Custom Styled Header</h4>
         </QIModalHeader>
         <QIModalBody>
-          <p>This modal has a custom header with no close button.</p>
+          <p>This modal has a custom header with no close icon.</p>
         </QIModalBody>
         <QIModalFooter>
-          <button 
+          <QIButton 
             onClick={handleClose}
-            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            className="qi-btn secondary"
           >
             Close
-          </button>
+          </QIButton>
         </QIModalFooter>
       </QIModal>
     </>
   );
 };
 
-export const CustomHeader = CustomHeaderModal.bind({});
-CustomHeader.args = {
-  size: 'medium',
-  backdrop: true,
-  backdropView: true,
-};

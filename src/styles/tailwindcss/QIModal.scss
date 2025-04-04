@@ -1,5 +1,5 @@
 .qi-modal {
-    @apply flex fixed w-full h-full top-0 left-0 overflow-y-auto overflow-x-hidden;
+    @apply flex fixed w-full h-full top-0 left-0;
   
     align-items: center;
     outline: 0;
@@ -70,12 +70,17 @@
           fill: #0767d0;
         }
       }
+      .icon {
+        width: 16px;  /* Set desired width */
+        height: 16px; /* Set desired height */
+      }
     }
   
     &_body {
       @apply px-6 pb-3 mt-3;
   
       max-height: calc(100vh - 280px);
+      overflow-y: auto;
       min-height: 220px;
   
       &::after {
