@@ -60,7 +60,11 @@ $qi-switch-off-color: #9aa7b4;
     }
   }
 }
-
+.qi-input_label {
+  margin-right: 0.5rem;
+  width: 10rem;
+  font-weight: 600;
+}
 .qi-switch {
   @extend .qi-input !optional ;
 
